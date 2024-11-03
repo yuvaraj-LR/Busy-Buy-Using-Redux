@@ -132,3 +132,32 @@ td, th {
 .capitalize {
   text-transform: capitalize;
 }
+
+/* App styles */
+.make_center {
+  max-width: 1200px;
+  width: 100%;
+  margin: auto;
+}
+
+/* Navbar */
+.home_logo {
+  width: 60px;
+}
+
+.current-nav {
+  padding: 16px 0;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+.navbar-bg {
+  background-color: #00BFFF !important;
+}
+
+.brand-title {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+
