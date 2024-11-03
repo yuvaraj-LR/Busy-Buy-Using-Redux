@@ -160,4 +160,58 @@ td, th {
   font-weight: 600;
 }
 
+/* Home Styles */
+.wrapper {
+  max-width: 1272px;
+  margin: auto;
+  padding-inline: 36px;
+}
+
+.home_logo {
+  width: 50px;
+}
+
+.home_head {
+  margin-bottom: 22px;
+}
+
+/* Card Style */
+.home_cards {
+  min-width: 17.99rem;
+  max-width: 18rem;
+}
+
+.card:hover {
+  transition: all 0.3s ease-in;
+  transform: scale(1.05);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+}
+
+.card_img {
+  width: 200px;
+  height: 250px;
+  margin: auto;
+  padding: 16px;
+  object-fit: contain;
+}
+
+.card-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow-y: hidden;
+  min-height: 50px;
+}
+
+.card-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.fa-star {
+  color: #ffd43b;
+}
+
 
