@@ -207,11 +207,23 @@ td, th {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  overflow: hidden;
+  overflow: hidden; 
 }
 
 .fa-star {
   color: #ffd43b;
 }
 
+/* Login Styles */
+.login_logo {
+  width: 150px;
+  object-fit: cover;
+}
 
+.login_redirect {
+  color: blue;
+}
+
+.login_redirect:hover {
+  text-decoration: underline;
+}
