@@ -1,8 +1,12 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Link, NavLink, Outlet } from 'react-router-dom'
+import { loginSelector } from '../redux/reducer/login.reducer'
 
 function Navbar() {
-    const isUserLoggedIn = false;
+    // const isUserLoggedIn = false;
+    const isUserLoggedIn = useSelector(loginSelector);
+    console.log(isUserLoggedIn, "userLoggedIn...");
 
     return (
         <div>

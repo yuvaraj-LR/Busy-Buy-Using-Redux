@@ -1,7 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { handleSignUpReducer } from '../redux/reducer/login.reducer';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 function SignUp() {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const dispatch = useDispatch();
+
+    const handleSignUp = async (e) => {
+        // console.log(e, "event...")
+        e.preventDefault();
+        try {
+            const result = await dispatch(handleSignUpReducer({name, email, password}));
+
+            // Check if the action was successful
+            if (!result.error) {
+                toast.success("User Registered Successfully!");
+
+                // Reset the values
+                setName('');
+                setEmail('');
+                setPassword('');
+
+                // Redirect to Home
+                window.location.href = "/";
+            }
+        } catch (error) {
+            console.log(error, "errorr,...");
+        }
+    }
+
     return (
         <div className="container my-5">
                 <div className="row justify-content-center">
@@ -10,7 +42,7 @@ function SignUp() {
                             <img src="./logo.png" alt="Logo" className="login_logo"/>
                         </div>
                         <p className="text-muted pb-4">Create your account to start using our platform and services.</p>
-                        <form>
+                        <form onSubmit={(e) => handleSignUp(e)}>
                             <div className="mb-3">
                                 <label htmlFor="name" className="form-label">Name</label>
                                 <div className="input-group">
@@ -20,7 +52,7 @@ function SignUp() {
                                             <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
                                         </svg>
                                     </span>
-                                    <input type="text" className="form-control" id="name" placeholder="Your Name" autoComplete="off" />
+                                    <input type="text" className="form-control" id="name" placeholder="Your Name" autoComplete="off" value={name} onChange={(e) => setName(e.target.value)} />
                                 </div>
                             </div>
                             <div className="mb-3">
@@ -32,7 +64,7 @@ function SignUp() {
                                             <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
                                         </svg>
                                     </span>
-                                    <input type="email" className="form-control" id="email" placeholder="name@company.com" autoComplete="off" />
+                                    <input type="email" className="form-control" id="email" placeholder="name@company.com" autoComplete="off" value={email} onChange={(e) => setEmail(e.target.value)} />
                                 </div>
                             </div>
                             <div className="mb-4">
@@ -46,7 +78,7 @@ function SignUp() {
                                             <path d="m8.5 10 7 4"></path>
                                         </svg>
                                     </span>
-                                    <input type="password" className="form-control" id="password" placeholder="••••••••••" autoComplete="new-password" />
+                                    <input type="password" className="form-control" id="password" placeholder="••••••••••" autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)}/>
                                 </div>
                             </div>
                             <button type="submit" className="btn btn-primary w-100 mb-4">Sign Up</button>

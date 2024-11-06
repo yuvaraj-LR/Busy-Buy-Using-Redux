@@ -9,6 +9,9 @@ import SignUp from "./pages/SignUp";
 import Order from "./pages/Order";
 import Cart from "./pages/Cart";
 import NotFound from "./pages/NotFound";
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
 
@@ -29,7 +32,10 @@ function App() {
 
   return (
     <div className='app'>
-      <RouterProvider router={router} />
+      <Provider store={store}>
+        <ToastContainer limit={3} theme="light" />
+        <RouterProvider router={router} />
+      </Provider>
     </div>
   );
 }
