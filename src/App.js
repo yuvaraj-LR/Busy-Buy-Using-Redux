@@ -11,7 +11,8 @@ import Cart from "./pages/Cart";
 import NotFound from "./pages/NotFound";
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
 
@@ -32,8 +33,8 @@ function App() {
 
   return (
     <div className='app'>
+      <ToastContainer limit={3} theme='light' />
       <Provider store={store}>
-        <ToastContainer limit={3} theme="light" />
         <RouterProvider router={router} />
       </Provider>
     </div>

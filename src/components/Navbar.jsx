@@ -2,11 +2,19 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import { loginSelector } from '../redux/reducer/login.reducer'
+import { removeCookie } from '../api/cookies';
+import { toast } from 'react-toastify';
 
 function Navbar() {
     // const isUserLoggedIn = false;
     const isUserLoggedIn = useSelector(loginSelector);
     console.log(isUserLoggedIn, "userLoggedIn...");
+
+    const signOutReducer = () => {
+        removeCookie("accessToken");
+        toast.success("Logout successfully!")
+        window.location.href = "/";
+    }
 
     return (
         <div>
@@ -38,7 +46,7 @@ function Navbar() {
                                 <input className="form-control me-2" type="search" placeholder="Search for products" aria-label="Search" />
                             </form>
 
-                            {!isUserLoggedIn ? <Link className="btn btn-primary" to="/signin">Login</Link> : <div className="flex flex_row flex_center gap-1 btn btn-outline-primary"><span><i className="fa-solid fa-arrow-right-from-bracket"></i></span><div>Logout</div></div>}
+                            {!isUserLoggedIn ? <Link className="btn btn-primary" to="/signin">Login</Link> : <div className="flex flex_row flex_center gap-1 btn btn-outline-primary" onClick={signOutReducer}><span><i className="fa-solid fa-arrow-right-from-bracket"></i></span><div>Logout</div></div>}
                         </div>
                     </div>
                 </nav>

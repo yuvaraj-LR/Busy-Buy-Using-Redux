@@ -4,13 +4,12 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "fire
 import { doc, setDoc } from "firebase/firestore";
 import { auth, db } from "../../firebase/firebase.init";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
 
 let initialState = {
-    isUserLoggedIn: false
+    isUserLoggedIn : getCookie("accessToken") ? true : false
 };
 
-
+// SignUp reducer.
 export const handleSignUpReducer = createAsyncThunk(
     "login/signUp",
     async (args, thunkAPI) => {
@@ -50,14 +49,33 @@ export const handleSignUpReducer = createAsyncThunk(
             } else {
                 toast.error("An unexpected error occurs.");
             }
-
             console.log(error.code, "errorrr...");
-
             return error;
         }
     }
 )
 
+// SignIn Reducer.
+export const handleSignInReducer = createAsyncThunk(
+    "login/signin",
+    async (args, thunkAPI) => {
+        const { email, password } = args;
+
+        try {
+            const user = await signInWithEmailAndPassword(auth, email, password);
+            console.log(user, "userr...");
+
+            setCookie("accessToken", user.accessToken, 7);
+
+            // Set User Login to true.
+            thunkAPI.dispatch(loginActions.setUserLoggedIn(true));
+        } catch (error) {
+            console.log(error.code, "codeee...");
+
+            return { success: false, error: error };
+        }
+    }
+);
 
 const loginSlice = createSlice({
     name: "login",
