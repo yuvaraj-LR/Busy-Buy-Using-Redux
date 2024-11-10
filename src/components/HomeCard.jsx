@@ -1,10 +1,14 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { loginSelector } from '../redux/reducer/login.reducer';
+import { handleAddCartAsync, productReducer } from '../redux/reducer/product.reducer';
 
-function HomeCard({data}) {
-    
-    const isUserLoggedIn = true;
-    const { title, price, description, image, rating, category } = data;
+function HomeCard({data, cardData}) {
+    const isUserLoggedIn = useSelector(loginSelector);
+    const { title, price, description, image, rating, category } = cardData;
+
+    const dispatch = useDispatch();
 
     return (
         <div className="card" >
@@ -20,7 +24,7 @@ function HomeCard({data}) {
                     </div>
                 </div>
 
-                {!isUserLoggedIn ? <Link className="w-100 btn btn-primary" to="/signin">Add To Cart</Link> : <button className="w-100 btn btn-primary">Add To Cart</button>}
+                {!isUserLoggedIn ? <Link className="w-100 btn btn-primary" to="/signin">Add To Cart</Link> : <button className="w-100 btn btn-primary" onClick={(e) => dispatch(handleAddCartAsync({data, cardData}))}>Add To Cart</button>}
             </div>
         </div>
     )

@@ -2,13 +2,13 @@ import React from 'react'
 import { busyBuyData } from '../data/item.data'
 import HomeCard from './HomeCard'
 
-function HomeList() {
+function HomeList({data}) {
     return (
         <>
             {
-                busyBuyData.map((data, index) => (
+                busyBuyData.map((cardData, index) => (
                     <div className="home_cards" key={index}>
-                        <HomeCard data={data} />
+                        <HomeCard data={data} cardData={cardData} />
                     </div>
                 ))
             }

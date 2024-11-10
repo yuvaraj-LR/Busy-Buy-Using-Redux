@@ -1,9 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import Filter from '../components/Filter'
 import HomeList from '../components/HomeList'
+import { getInitialProductState, productSelector } from '../redux/reducer/product.reducer'
+import { useDispatch, useSelector } from 'react-redux'
 
 function Home() {
+    const dispatch = useDispatch();
+
+    const {data} = useSelector(productSelector);
+
+    useEffect(() => {
+        dispatch(getInitialProductState());
+    }, [])
+
     return (
         <div className="flex flex_center loader"> 
             <div className="my-4 wrapper">
@@ -13,7 +23,7 @@ function Home() {
                     <Filter />
                 </div>
                 <div className="flex flex_wrap flex_center flex_gap_1 home_card">
-                    <HomeList />
+                    <HomeList data={data} />
                 </div>
             </div> 
         </div>

@@ -227,3 +227,33 @@ td, th {
 .login_redirect:hover {
   text-decoration: underline;
 }
+
+/* Cart Styles */
+.cart-img {
+  width: 100px;
+  height: 120px;
+  object-fit: contain;
+}
+
+.empty_container {
+  border: 1px solid #333;
+  padding: 2rem;
+}
+
+.cart-icons {
+  font-size: 1.5rem;
+}
+
+.count {
+  padding: 0.7rem 0.5rem;
+  font-size: 1.1rem;
+  position: relative;
+  bottom: 4px;
+}
+
+.total_count {
+  padding: 1rem 2rem;
+  margin: 1.5rem 0;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+}
