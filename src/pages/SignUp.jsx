@@ -18,7 +18,7 @@ function SignUp() {
             const result = await dispatch(handleSignUpReducer({name, email, password}));
 
             // Check if the action was successful
-            if (!result.error) {
+            if (result.payload === undefined) {
                 toast.success("User Registered Successfully!");
 
                 // Reset the values
@@ -28,6 +28,14 @@ function SignUp() {
 
                 // Redirect to Home
                 window.location.href = "/";
+            } else {
+                if(result.payload.error.code === "auth/invalid-email" || result.payload.error.code === "auth/email-already-in-use") {
+                    toast.error("This email is already in use by another account.");
+                } else if (result.payload.error.code === "auth/weak-password") {
+                    toast.error("Weak Password! Password should be more than 6 characters.");
+                } else {
+                    toast.error("An unexpected error occurs.");
+                }
             }
         } catch (error) {
             console.log(error, "errorr,...");

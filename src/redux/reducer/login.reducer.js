@@ -42,15 +42,9 @@ export const handleSignUpReducer = createAsyncThunk(
                 thunkAPI.dispatch(loginActions.setUserLoggedIn(true));
             }
         } catch (error) {
-            if(error.code === "auth/invalid-email" || error.code === "auth/email-already-in-use") {
-                toast.error("This email is already in use by another account.");
-            } else if (error.code === "auth/weak-password") {
-                toast.error("Weak Password! Password should be more than 6 characters.");
-            } else {
-                toast.error("An unexpected error occurs.");
-            }
-            console.log(error.code, "errorrr...");
-            return error;
+            console.log(error.code, "codee...");
+
+            return { success: false, error: error };
         }
     }
 )
