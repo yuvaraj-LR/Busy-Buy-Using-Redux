@@ -3,8 +3,7 @@ import { useDispatch } from 'react-redux';
 import { handleAddCartAsync, handleSubCartAsync } from '../redux/reducer/product.reducer';
 
 function CardTableRow({cardData, data}) {
-
-    console.log(data, "dataaa./...");
+    console.log(cardData, "dataaa./...");
 
     const {title, price, image, count} = cardData;
     const {fromOrderTable, index} = data;

@@ -22,6 +22,7 @@ export const getInitialProductState = createAsyncThunk(
                 const unsubscribe = onSnapshot(docRef, (docSnap) => {
                     if (docSnap.exists()) {
                         const data = docSnap.data();
+                        console.log(data, "Initial Data.");
 
                         thunkAPI.dispatch(productActions.setInitialProductState(data));
 
@@ -170,8 +171,14 @@ export const handleBuyNowAsync = createAsyncThunk(
             let date = new Date();
             let getDate = date.toLocaleDateString();
 
+            let priceCount = 0;
+            cartItem?.forEach(item => {
+                priceCount += (item.count * item.price)
+            });
+
             const order = {
                 data: getDate,
+                cartPriceCount: priceCount,
                 cartItem,
             }
 
