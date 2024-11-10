@@ -1,8 +1,15 @@
 import React from 'react'
+import { useDispatch } from 'react-redux';
+import { handleAddCartAsync, handleSubCartAsync } from '../redux/reducer/product.reducer';
 
-function CardTableRow(data) {
-    const {title, price, image, count} = data.data;
+function CardTableRow({cardData, data}) {
+
+    console.log(data, "dataaa./...");
+
+    const {title, price, image, count} = cardData;
     const {fromOrderTable, index} = data;
+
+    const dispatch = useDispatch();
 
     return (
         <>
@@ -15,13 +22,13 @@ function CardTableRow(data) {
             <td>{title}</td>
             <td className="text-center">
                 {!fromOrderTable && (
-                    <span className="pointer">
+                    <span className="pointer" onClick={() => dispatch(handleSubCartAsync({data, cardData}))}>
                         <i className="fa-solid fa-circle-minus cart-icons"></i>
                     </span>
                 )}
                 <span className="count">{count}</span>
                 {!fromOrderTable && (
-                    <span className="pointer">
+                    <span className="pointer" onClick={() => dispatch(handleAddCartAsync({data, cardData}))}>
                         <i className="fa-solid fa-circle-plus cart-icons"></i>
                     </span>
                 )}

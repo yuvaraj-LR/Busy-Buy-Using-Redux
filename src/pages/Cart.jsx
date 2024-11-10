@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getInitialProductState, productSelector } from '../redux/reducer/product.reducer';
+import { getInitialProductState, handleBuyNowAsync, handleClearAll, productSelector } from '../redux/reducer/product.reducer';
 
 import CardTableRow from '../components/CardTableRow';
+import Empty from '../components/Empty';
 
 function Cart() {
     const dispatch = useDispatch();
@@ -32,9 +33,9 @@ function Cart() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {cartItem?.map((data, i) => (
+                                    {cartItem?.map((cardData, i) => (
                                         <tr className="cart_table_row" key={i}>
-                                            <CardTableRow data={data} index={i} />
+                                            <CardTableRow cardData={cardData} index={i} data={data} />
                                         </tr>
                                     ))}
                                 </tbody>
@@ -49,13 +50,12 @@ function Cart() {
                         </div>
 
                         <div className="text-end w-100 buy_btn">
-                            <button className="btn btn-outline-danger mx-4">Clear All</button>
-                            <button className="btn btn-danger">Buy Now</button>
+                            <button className="btn btn-outline-danger mx-4" onClick={() => dispatch(handleClearAll({data}))}>Clear All</button>
+                            <button className="btn btn-danger" onClick={() => dispatch(handleBuyNowAsync({data}))} >Buy Now</button>
                         </div> 
                     </>
                 ) : (
-                    <></>
-                    // <Empty text="No items in cart" />
+                    <Empty text="No items in cart" />
                 )
             }
         </div>

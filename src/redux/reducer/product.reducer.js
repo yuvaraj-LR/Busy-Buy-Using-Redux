@@ -14,6 +14,7 @@ export const getInitialProductState = createAsyncThunk(
     "product/getInitialProductState",
     (arg, thunkAPI) => {
         auth.onAuthStateChanged(async(user) => {
+            console.log(user, "userr...");
             if(user) {
                 const docRef = doc(db, "BusyBuy", user?.uid);
 
@@ -68,17 +69,18 @@ export const handleAddCartAsync = createAsyncThunk(
                 updatedCartItem.push(newCardData);
                 toast("Cart Item Added.");
             }
-
-            let updatedData = {
+            // Update the data in Firestore
+            await setDoc(doc(db, "BusyBuy", userdata.uid), {
                 userdata: userdata,
                 cartItem: updatedCartItem,
                 orderedItem: orderedItem || []
-            };
-            console.log(updatedData, "upDataa...");
+            });
 
-            // Update the data in Firestore
-            await setDoc(doc(db, "BusyBuy", userdata.uid), updatedData);
-            thunkAPI.dispatch(productActions.setInitialProductState(updatedData));
+            thunkAPI.dispatch(productActions.setInitialProductState({
+                userdata: userdata,
+                cartItem: updatedCartItem,
+                orderedItem: orderedItem || []
+            }));
         } catch (error) {
             console.log(error, "error");
             toast.error("Cart Item Failed to add.");
@@ -86,23 +88,123 @@ export const handleAddCartAsync = createAsyncThunk(
     }
 );
 
+export const handleSubCartAsync = createAsyncThunk(
+    "product/subCart",
+    async (arg, thunkAPI) => {
+        try {
+            const { data, cardData } = arg;
+            const { userdata, cartItem, orderedItem } = data;
+
+            // Clone the cart items array to ensure it's mutable
+            let updatedCartItem = cartItem ? cartItem.map(item => ({ ...item })) : [];
+
+            // Find the index of the product in the cart
+            let productIndex = updatedCartItem.findIndex(item => item.id === cardData.id);
+
+            // If product exists in the cart
+            if (productIndex !== -1) {
+                const item = updatedCartItem[productIndex];
+
+                if (item.count > 1) {
+                    // Decrement count if it's greater than 1
+                    updatedCartItem[productIndex] = { 
+                        ...item, 
+                        count: item.count - 1 
+                    };
+                    toast("Item Count Decreased.");
+                } else {
+                    // If count is 1, remove the item from the cart
+                    updatedCartItem.splice(productIndex, 1);
+                    toast("Item Removed from Cart.");
+                }
+            } else {
+                // If product is not in the cart, show a warning
+                toast.warning("Item not found in cart.");
+            }
+
+            // Update the data in Firestore
+            await setDoc(doc(db, "BusyBuy", userdata.uid), {
+                userdata: userdata,
+                cartItem: updatedCartItem,
+                orderedItem: orderedItem || []
+            });
+
+            // Update the Redux state
+            thunkAPI.dispatch(productActions.setInitialProductState({
+                userdata: userdata,
+                cartItem: updatedCartItem,
+                orderedItem: orderedItem || []
+            }));
+        } catch (error) {
+            console.log(error, "error");
+            toast.error("Failed to remove item from cart.");
+        }
+    }
+);
+
+export const handleClearAll = createAsyncThunk(
+    "product/clearAll",
+    async (arg, thunkAPI) => {
+        try {
+            const { data } = arg;
+            const { userdata, orderedItem } = data;
+            
+            await setDoc(doc(db, "BusyBuy", userdata.uid), {
+                userdata: userdata,
+                cartItem: [],
+                orderedItem: orderedItem || []   
+            });
+        } catch (error) {
+            console.log("Something went wrong.");
+        }
+    }
+);
+
+export const handleBuyNowAsync = createAsyncThunk(
+    "buyNow/product", 
+    async (arg, thunkAPI) => {
+        try {
+            const { data } = arg;
+            const { userdata, cartItem, orderedItem } = data;
+
+            let date = new Date();
+            let getDate = date.toLocaleDateString();
+
+            const order = {
+                data: getDate,
+                cartItem,
+            }
+
+            // Update the data.
+            await setDoc(doc(db, "BusyBuy", userdata.uid), {
+                userdata: userdata,
+                cartItem: [],
+                orderedItem: [order, ...orderedItem]
+            });
+
+            toast.success("Order Placed Successfully.")
+        } catch (error) {
+            console.log(error, "error in handle");
+            toast.error("Order not placed successfully.")
+        }
+    }
+)
 
 const productSlice = createSlice({
     name: "product",
     initialState: INITIAL_STATE,
     reducers: {
-        getCartProceCount: (state, action) => {
+        getCartPriceCount: (state, action) => {
             return state.cartPriceCount;
         },
         setCartPriceCount: (state, action) => {
             state.cartPriceCount = action.payload;
         },
-        setInitialProductState: (state, action) => {
-            console.log(action.payload, "loadd...");
-            state.data = action.payload;
+        getInitialProductState: (state, action) => {
+            return state.data;
         },
-        addItemToCart: (state, action) => {
-            console.log(state.data, "dataa....");
+        setInitialProductState: (state, action) => {
+            state.data = action.payload;
         }
     }
 })
