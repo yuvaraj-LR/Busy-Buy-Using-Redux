@@ -5,7 +5,7 @@ export const busyBuyData = [
         price: 9126.85,
         description:
         "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-        category: "men's clothing",
+        category: "men",
         image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
         rating: {
         rate: 3.9,
@@ -18,7 +18,7 @@ export const busyBuyData = [
         price: 1840.9,
         description:
         "Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.",
-        category: "men's clothing",
+        category: "men",
         image:
         "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
         rating: {
@@ -32,7 +32,7 @@ export const busyBuyData = [
         price: 4647.17,
         description:
         "great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions, such as working, hiking, camping, mountain/rock climbing, cycling, traveling or other outdoors. Good gift choice for you or your family member. A warm hearted love to Father, husband or son in this thanksgiving or Christmas Day.",
-        category: "men's clothing",
+        category: "men",
         image: "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg",
         rating: {
         rate: 4.7,
@@ -45,7 +45,7 @@ export const busyBuyData = [
         price: 1327.17,
         description:
         "The color could be slightly different between on the screen and in practice. / Please note that body builds vary by person, therefore, detailed size information should be reviewed below on the product description.",
-        category: "men's clothing",
+        category: "men",
         image: "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
         rating: {
         rate: 2.1,
@@ -192,7 +192,7 @@ export const busyBuyData = [
         price: 8155.67,
         description:
         "Note:The Jackets is US standard size, Please choose size as your usual wear Material: 100% Polyester; Detachable Liner Fabric: Warm Fleece. Hooded Softshell Jacket: Detachable hood, adjustable cuff, chest pocket, inside phone pocket and security pocket, Zipper pockets, adjustable hem, Soft and Comfortable Wear-resistant Softshell with highly windproof and waterproof.",
-        category: "women's clothing",
+        category: "women",
         image: "https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_.jpg",
         rating: {
         rate: 2.6,
@@ -206,7 +206,7 @@ export const busyBuyData = [
         price: 6784.25,
         description:
         "100% POLYURETHANE (shell) 100% POLYESTER (lining) 75% POLYESTER 25% COTTON (sweater) Faux leather material for style and comfort / 2 pockets of front, Zipper closure, Detachable hood and adjustable drawstring",
-        category: "women's clothing",
+        category: "women",
         image: "https://fakestoreapi.com/img/81XH0e8fefL._AC_UY879_.jpg",
         rating: {
         rate: 2.9,
@@ -219,7 +219,7 @@ export const busyBuyData = [
         price: 4971.00,
         description:
         "Lightweight perfet for trip or casual wear---Long sleeve with hooded, adjustable drawstring waist design. Button and zipper front closure raincoat, fully stripes Lined and Water Resistant. Quick-drying when it is light rain or snow and wind.",
-        category: "women's clothing",
+        category: "women",
         image: "https://fakestoreapi.com/img/71HblAHs5xL._AC_UY879_-2.jpg",
         rating: {
         rate: 3.8,
@@ -232,7 +232,7 @@ export const busyBuyData = [
         price: 1082.25,
         description:
         "95% RAYON 5% SPANDEX, Made in USA or Imported, Do Not Bleach, Lightweight Fabric, soft and stretchy for comfort / Double stitching on sleeves and bottom hem for durability / Assorted colors",
-        category: "women's clothing",
+        category: "women",
         image: "https://fakestoreapi.com/img/71z3kpMAYsL._AC_UY879_.jpg",
         rating: {
         rate: 4.7,
@@ -245,7 +245,7 @@ export const busyBuyData = [
         price: 1196.17,
         description:
         "100% Polyester, Machine wash, 100% cationic polyester interlock, Moisture-wicking",
-        category: "women's clothing",
+        category: "women",
         image: "https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg",
         rating: {
         rate: 4.5,
@@ -258,7 +258,7 @@ export const busyBuyData = [
         price: 1075.75,
         description:
         "95%Cotton,5%Spandex, Features: Casual, Short Sleeve, Letter Print,V-Neck,Fashion Tees The fabric is soft and has some stretch.",
-        category: "women's clothing",
+        category: "women",
         image: "https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg",
         rating: {
         rate: 3.6,

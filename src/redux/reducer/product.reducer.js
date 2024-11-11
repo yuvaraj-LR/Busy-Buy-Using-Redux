@@ -4,10 +4,10 @@ import { doc, onSnapshot, setDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 
 const INITIAL_STATE = {
-    data: [
-
-    ],
-    cartPriceCount: 0
+    data: [],
+    cartPriceCount: 0,
+    searchedProducts: [],
+    selectedCategory: null
 }
 
 export const getInitialProductState = createAsyncThunk(
@@ -195,26 +195,62 @@ export const handleBuyNowAsync = createAsyncThunk(
             toast.error("Order not placed successfully.")
         }
     }
-)
+);
+
+export const handleSearchOption = createAsyncThunk(
+    "search/product",
+    async ({ search, busyBuyData }, thunkAPI) => {
+        const filteredProducts = busyBuyData.filter(product =>
+            product.title.toLowerCase().includes(search.toLowerCase())
+        );
+        
+        thunkAPI.dispatch(productActions.searchProductState(filteredProducts));
+    }
+);
+
+// New action creators for filtering by category
+export const setCategoryFilter = createAsyncThunk(
+    "filter/setCategoryFilter",
+    async (category, thunkAPI) => {
+        const state = thunkAPI.getState().productReducer;
+        const filteredProducts = state.searchedProducts
+        .filter(product =>
+            product.category.toLowerCase() === category.toLowerCase()
+        );
+        thunkAPI.dispatch(productActions.setFilteredProducts(filteredProducts));
+        thunkAPI.dispatch(productActions.setSelectedCategory(category));
+    }
+);
+
+export const clearCategoryFilter = createAsyncThunk(
+    "filter/clearCategoryFilter",
+    async (_, thunkAPI) => {
+        const state = thunkAPI.getState().productReducer.searchedProducts;
+        thunkAPI.dispatch(productActions.setFilteredProducts(state.data));
+        thunkAPI.dispatch(productActions.setSelectedCategory(null));
+    }
+);
 
 const productSlice = createSlice({
     name: "product",
     initialState: INITIAL_STATE,
     reducers: {
-        getCartPriceCount: (state, action) => {
-            return state.cartPriceCount;
-        },
+        getCartPriceCount: (state, action) => state.cartPriceCount,
         setCartPriceCount: (state, action) => {
             state.cartPriceCount = action.payload;
         },
-        getInitialProductState: (state, action) => {
-            return state.data;
-        },
+        getInitialProductState: (state, action) => state.data,
         setInitialProductState: (state, action) => {
             state.data = action.payload;
+        },
+        searchProductState: (state, action) => {
+            state.searchedProducts = action.payload;
+        },
+        setFilteredProducts: (state, action) => {
+            state.searchedProducts = action.payload;
         }
     }
-})
+});
 
 export const productReducer = productSlice.reducer;
 export const productActions = productSlice.actions;

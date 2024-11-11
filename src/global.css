@@ -163,6 +163,7 @@ td, th {
 /* Home Styles */
 .wrapper {
   max-width: 1272px;
+  width: 100%;
   margin: auto;
   padding-inline: 36px;
 }

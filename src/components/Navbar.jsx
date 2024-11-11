@@ -1,14 +1,28 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import { loginSelector } from '../redux/reducer/login.reducer'
 import { removeCookie } from '../api/cookies';
 import { toast } from 'react-toastify';
+import { getInitialProductState, handleSearchOption, productSelector } from '../redux/reducer/product.reducer';
+import { busyBuyData } from '../data/item.data';
 
 function Navbar() {
     // const isUserLoggedIn = false;
     const isUserLoggedIn = useSelector(loginSelector);
     console.log(isUserLoggedIn, "userLoggedIn...");
+
+    const dispatch = useDispatch();
+
+    const [search, setSearch] = useState('');
+
+    useEffect(() => {
+        dispatch(getInitialProductState());
+    }, [])
+
+    useEffect(() => {
+        dispatch(handleSearchOption({ search, busyBuyData }));
+    }, [search, dispatch]);
 
     const signOutReducer = () => {
         removeCookie("accessToken");
@@ -43,7 +57,7 @@ function Navbar() {
                                 </li>
                             </ul>
                             <form className="d-flex mx-2" role="search">
-                                <input className="form-control me-2" type="search" placeholder="Search for products" aria-label="Search" />
+                                <input className="form-control me-2" type="search" placeholder="Search for products" aria-label="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
                             </form>
 
                             {!isUserLoggedIn ? <Link className="btn btn-primary" to="/signin">Login</Link> : <div className="flex flex_row flex_center gap-1 btn btn-outline-primary" onClick={signOutReducer}><span><i className="fa-solid fa-arrow-right-from-bracket"></i></span><div>Logout</div></div>}
